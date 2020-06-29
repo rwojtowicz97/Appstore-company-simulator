@@ -71,11 +71,40 @@ public class Game {
         oldFriends.add(new OldFriend("Zbigniew Korek", RandomNumberGenerator(400, 1000), 3));
     }
 
+    public void NextDay()
+    {
+        dayCounter++;
+    }
+
+    public void PrintAllClients()
+    {
+        for (Client client: clients)
+        {
+            System.out.println(client);
+        }
+    }
+
     public void PrintAllProjects()
     {
         for (Project project: projects)
         {
          System.out.println(project);
+        }
+    }
+
+    public void PrintAllWorkers()
+    {
+        for (Worker worker: workers
+             ) {
+            System.out.println(worker);
+        }
+    }
+
+    public void PrintAllOldFriends()
+    {
+        for (OldFriend oldFriend: oldFriends
+        ) {
+            System.out.println(oldFriend);
         }
     }
 
