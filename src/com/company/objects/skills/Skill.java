@@ -1,14 +1,17 @@
 package com.company.objects.skills;
 
 public abstract class Skill {
-    public int skillLevel;
+    public int daysOfWorkLeft;
 
-    public Skill(int level)
+    public Skill()
     {
-        this.skillLevel = level;
+
     }
 
-    public int getSkillLevel(){
-        return skillLevel;
+    public Skill( int daysOfWorkLeft)
+    {
+        this.daysOfWorkLeft = daysOfWorkLeft;
     }
+
+
 }

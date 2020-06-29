@@ -1,7 +1,10 @@
 package com.company.objects.skills;
 
 public class Pretashop extends Skill{
-    public Pretashop(int level) {
-        super(level);
+    public Pretashop() {
+        super();
+    }
+    public Pretashop(int daysOfWorkLeft) {
+        super(daysOfWorkLeft);
     }
 }

@@ -1,7 +1,10 @@
 package com.company.objects.skills;
 
 public class Databases extends Skill {
-    public Databases(int level) {
-        super(level);
+    public Databases() {
+        super();
+    }
+    public Databases(int daysOfWorkLeft) {
+        super(daysOfWorkLeft);
     }
 }

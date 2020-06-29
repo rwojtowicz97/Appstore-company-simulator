@@ -4,19 +4,19 @@ import com.company.objects.skills.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
-public class Worker {
-    public String workerName;
-    public double price;
-    public double salary;
+public class OldFriend {
+    public String name;
+    public int level;
     public List<Skill> skills = new ArrayList<Skill>();
+    public double price;
 
-    public Worker(String name, double price, double salary)
+    public OldFriend(String name, double price, int level)
     {
-        this.workerName = name;
+        this.name = name;
         this.price = price;
-        this.salary = salary;
+        this.level = level;
+
 
         this.skills.add(new Backend());
         this.skills.add(new Databases());
@@ -24,4 +24,5 @@ public class Worker {
         this.skills.add(new Wordpress());
         this.skills.add(new Pretashop());
     }
+
 }
