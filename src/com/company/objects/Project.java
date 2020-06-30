@@ -43,30 +43,25 @@ public class Project implements Randomizer {
         switch (level){
             case 1:
                 this.skillsNeeded.add(allSkills.get(RandomNumberGenerator(0,allSkills.size()-1)));
-                skillsNeeded.get(0).daysOfWorkLeft = RandomNumberGenerator(1,5);
+                this.skillsNeeded.get(0).daysOfWorkLeft = RandomNumberGenerator(1,5);
                 break;
             case 2:
                 this.skillsNeeded.add(allSkills.get(RandomNumberGenerator(0,2)));
-                skillsNeeded.get(0).daysOfWorkLeft = RandomNumberGenerator(1,5);
+                this.skillsNeeded.get(0).daysOfWorkLeft = RandomNumberGenerator(1,5);
                 this.skillsNeeded.add(allSkills.get(RandomNumberGenerator(3,5)));
-                skillsNeeded.get(1).daysOfWorkLeft = RandomNumberGenerator(1,5);
+                this.skillsNeeded.get(1).daysOfWorkLeft = RandomNumberGenerator(1,5);
                 break;
             case 3:
                 this.skillsNeeded.add(allSkills.get(RandomNumberGenerator(0,1)));
-                skillsNeeded.get(0).daysOfWorkLeft = RandomNumberGenerator(1,5);
+                this.skillsNeeded.get(0).daysOfWorkLeft = RandomNumberGenerator(1,5);
                 this.skillsNeeded.add(allSkills.get(RandomNumberGenerator(2,3)));
-                skillsNeeded.get(1).daysOfWorkLeft = RandomNumberGenerator(1,5);
+                this.skillsNeeded.get(1).daysOfWorkLeft = RandomNumberGenerator(1,5);
                 this.skillsNeeded.add(allSkills.get(RandomNumberGenerator(4,5)));
-                skillsNeeded.get(2).daysOfWorkLeft = RandomNumberGenerator(1,5);
+                this.skillsNeeded.get(2).daysOfWorkLeft = RandomNumberGenerator(1,5);
                 break;
         }
 
-
-//        this.skillsNeeded.add(new Backend(RandomNumberGenerator(1,5)));
-//        this.skillsNeeded.add(new Frontend(ThreadLocalRandom.current().nextInt(1, 5 + 1)));
-//        this.skillsNeeded.add(new Pretashop(ThreadLocalRandom.current().nextInt(1, 5 + 1)));
-
-        this.daysOfWork = SumDaysOfWork();
+        UpdateDaysOfWork();
     }
 
     public int SumDaysOfWork()
@@ -82,11 +77,11 @@ public class Project implements Randomizer {
     public void UpdateDaysOfWork()
     {
         int sum=0;
-        for (Skill skill: skillsNeeded)
+        for (Skill skill: this.skillsNeeded)
         {
             sum += skill.daysOfWorkLeft;
+            this.daysOfWork = sum;
         }
-        this.daysOfWork = sum;
     }
 
     public void InitializeAllSkills()
@@ -110,6 +105,7 @@ public class Project implements Randomizer {
         return "Project {" + "Project name= " + projectName + '\'' +
                 ", days of work= " + daysOfWork + '\'' +
                 ", days till payment= " + daysTillPayment + '\'' +
+                ", skills= " + skillsNeeded + '\'' +
                 ", penalty= " + penalty + '\'' +
                 ", price= " + price + '\'' +
                 ", days till deadline= " + daysTillDeadline + '}';

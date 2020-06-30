@@ -37,6 +37,76 @@ public class Game implements Randomizer {
         InitializeData();
     }
 
+    public void DisplayMenu()
+    {
+        System.out.println();
+        if (owner.projects.isEmpty())
+        {
+            System.out.println("Day: " + dayCounter + " | Saldo: " + owner.saldo);
+        }
+        else {
+            System.out.println("Day: " + dayCounter + " | Saldo: " + owner.saldo + " | Project name: " + owner.projects.get(0).projectName + " WorkDays left: " + owner.projects.get(0).daysOfWork);
+        }
+        System.out.println();
+        System.out.println("1. Work on current project");
+        System.out.println("2. List your workers");
+        System.out.println("3. Find new worker");
+        System.out.println("4. List available projects");
+        System.out.println("5. List your old friends");
+        System.out.println("6. Find a new project (Stage: " + newClientCounter + "/5)");
+        System.out.println("7. Pay your workers");
+        System.out.println("8. Choose new project");
+        System.out.println("9. Go back to menu");
+        System.out.println("10. Return your project");
+        System.out.println("11. Kick-out your worker");
+        System.out.println("0. EXIT");
+        System.out.println();
+        MenuScanner();
+    }
+
+    public void MenuScanner()
+    {
+        int option = scan.nextInt();
+
+        switch (option){
+            case 1:
+                Work();
+                break;
+            case 2:
+                owner.PrintAllWorkers();
+                break;
+            case 3:
+                BuyWorker();
+                break;
+            case 4:
+                PrintAllProjects();
+                break;
+            case 5:
+                PrintAllOldFriends();
+                break;
+            case 6:
+                FindNewProject();
+                break;
+            case 7:
+                PayWorkersAndZus();
+                break;
+            case 8:
+                AssignProject();
+                break;
+            case 9:
+                DisplayMenu();
+                break;
+            case 10:
+                ReturnProject();
+                break;
+            case 11:
+                FireWorker();
+                break;
+            case 0:
+                System.exit(0);
+        }
+    }
+
     public void InitializeData()
     {
         InitializeClients();
@@ -84,20 +154,24 @@ public class Game implements Randomizer {
         NextDay();
     }
 
-    public void FireWorker(int x)
+    public void FireWorker()
     {
-        //TODO
         owner.PrintAllWorkers();
-        owner.workers.remove(x);
+        int option = scan.nextInt();
+        owner.workers.remove(option-1);
         owner.saldo -= 200;
         NextDay();
     }
 
-    public void BuyWorker(Worker worker) {
-        if (owner.saldo >= worker.price) {
-            owner.workers.add(worker);
-            this.workers.remove(worker);
-            owner.saldo -= worker.price;
+    public void BuyWorker() {
+        PrintAllWorkers();
+        int option = scan.nextInt();
+
+        if (owner.saldo >= workers.get(option-1).price) {
+            owner.saldo -= workers.get(option-1).price;
+            owner.workers.add(workers.get(option-1));
+            workers.remove(option-1);
+            GenerateNewWorker();
             NextDay();
         }
         else {
@@ -110,11 +184,15 @@ public class Game implements Randomizer {
         PrintAllProjects();
         int option = scan.nextInt();
 
-        Project project = projects.get(option-1);
-
-        owner.projects.add(project);
-        this.projects.remove(project);
-        NextDay();
+        if(option > projects.size()){
+            DisplayMenu();
+        }
+        else {
+            Project project = projects.get(option - 1);
+            owner.projects.add(project);
+            this.projects.remove(project);
+            NextDay();
+        }
     }
 
     public void ReturnProject()
@@ -128,7 +206,7 @@ public class Game implements Randomizer {
             }
             else
             {
-                System.out.println("Congratulations, you returner the project!");
+                System.out.println("Congratulations, you returned the project!");
                 owner.saldo += owner.projects.get(0).price;
                 owner.projects.remove(0);
                 NextDay();
@@ -158,71 +236,6 @@ public class Game implements Randomizer {
         DisplayMenu();
     }
 
-    public void DisplayMenu()
-    {
-        System.out.println();
-        System.out.println("Day: " + dayCounter + " | Saldo: " + owner.saldo);
-        System.out.println();
-        System.out.println("1. Work on current project");
-        System.out.println("2. List your workers");
-        System.out.println("3. Find new worker");
-        System.out.println("4. List available projects");
-        System.out.println("5. List your old friends");
-        System.out.println("6. Find a new project (Stage: " + newClientCounter + "/5)");
-        System.out.println("7. Pay your workers");
-        System.out.println("8. Choose new project");
-        System.out.println("9. Go back to menu");
-        System.out.println("10. Return your project");
-        System.out.println("11. Kick-out your worker");
-        System.out.println("0. EXIT");
-        System.out.println();
-        MenuScanner();
-    }
-
-    public void MenuScanner()
-    {
-        int option = scan.nextInt();
-
-        switch (option){
-            case 1:
-                Work();
-                break;
-            case 2:
-                owner.PrintAllWorkers();
-                break;
-            case 3:
-                PrintAllWorkers();
-                break;
-            case 4:
-                PrintAllProjects();
-                break;
-            case 5:
-                PrintAllOldFriends();
-                break;
-            case 6:
-                FindNewProject();
-                break;
-            case 7:
-                PayWorkersAndZus();
-                break;
-            case 8:
-                AssignProject();
-                break;
-            case 9:
-                DisplayMenu();
-                break;
-            case 10:
-                ReturnProject();
-                break;
-            case 11:
-                //TODO
-                owner.PrintAllWorkers();
-                break;
-            case 0:
-                System.exit(0);
-        }
-    }
-
     public void PrintAllClients()
     {
         System.out.println("--------------Clients------------------");
@@ -246,10 +259,11 @@ public class Game implements Randomizer {
 
     public void PrintAllWorkers()
     {
+        int index = 1;
         System.out.println("----------Available Workers-----------");
         for (Worker worker: workers
              ) {
-            System.out.println(worker);
+            System.out.println((index++) + ". " + worker);
         }
         System.out.println("---------------------------------------");
     }
@@ -276,31 +290,38 @@ public class Game implements Randomizer {
         projects.add(new Project(randomName, clients.get(clientNumber), daysTillPayment, randomPenalty, randomPrice, daysTillDeadLine));
     }
 
+    public void GenerateNewWorker()
+    {
+        String randomName = faker.funnyName().name();
+        double randomPrice = RandomNumberGenerator(200,6000);
+        double randomSalary = RandomNumberGenerator(2500, 10000);
+        workers.add(new Worker(randomName, randomPrice, randomSalary));
+    }
+
     public void Work()
     {
         if(!owner.projects.isEmpty())
         {
-            for (Skill projectSkill: owner.projects.get(0).skillsNeeded
-                 ) {
-                for (Skill ownerSkill: owner.skills
-                     ) {
-                    if(projectSkill.getClass().getSimpleName() == ownerSkill.getClass().getSimpleName())
+            for (Skill projectSkill: owner.projects.get(0).skillsNeeded)
+            {
+                if (projectSkill.daysOfWorkLeft > 0) {
+                    for (Skill ownerSkill : owner.skills)
                     {
-                        if (projectSkill.daysOfWorkLeft > 0)
+                        if (projectSkill.getClass().getSimpleName() == ownerSkill.getClass().getSimpleName())
                         {
-                            projectSkill.daysOfWorkLeft--;
+                            projectSkill.daysOfWorkLeft -= 1;
                             owner.projects.get(0).UpdateDaysOfWork();
                             NextDay();
-                            return;
                         }
                     }
-
                 }
             }
             System.out.println("Sorry, you can't work on this project.");
+            return;
         }
         else {
             System.out.println("You don't have any project.");
+            DisplayMenu();
         }
     }
 
@@ -311,8 +332,9 @@ public class Game implements Randomizer {
 
     public void Play()
     {
-        while (true){
+        while (owner.saldo >=0){
             DisplayMenu();
         }
+        System.out.println("YOU LOST!");
     }
 }
