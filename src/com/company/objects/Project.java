@@ -44,6 +44,16 @@ public class Project {
         return sum;
     }
 
+    public void UpdateDaysOfWork()
+    {
+        int sum=0;
+        for (Skill skill: skillsNeeded)
+        {
+            sum += skill.daysOfWorkLeft;
+        }
+        this.daysOfWork = sum;
+    }
+
     @Override
     public String toString()
     {

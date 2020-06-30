@@ -206,7 +206,30 @@ public class Game {
 
     public void Work()
     {
+        if(!owner.projects.isEmpty())
+        {
+            for (Skill projectSkill: owner.projects.get(0).skillsNeeded
+                 ) {
+                for (Skill ownerSkill: owner.skills
+                     ) {
+                    if(projectSkill.getClass().getSimpleName() == ownerSkill.getClass().getSimpleName())
+                    {
+                        if (projectSkill.daysOfWorkLeft > 0)
+                        {
+                            projectSkill.daysOfWorkLeft--;
+                            owner.projects.get(0).UpdateDaysOfWork();
+                            NextDay();
+                            return;
+                        }
+                    }
 
+                }
+            }
+            System.out.println("Sorry, you can't work on this project.");
+        }
+        else {
+            System.out.println("You don't have any project.");
+        }
     }
 
     public int RandomNumberGenerator(int min, int max)
@@ -216,6 +239,6 @@ public class Game {
 
     public void Play()
     {
-
+        DisplayMenu();
     }
 }

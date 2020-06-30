@@ -19,12 +19,12 @@ public class Owner {
     {
         this.ownerName = name;
         this.saldo = 2500d;
-        List<Skill> skills = new ArrayList<Skill>();
-        skills.add(new Backend());
-        skills.add(new Databases());
-        skills.add(new Frontend());
-        skills.add(new Wordpress());
-        skills.add(new Pretashop());
+        skills = new ArrayList<Skill>();
+        this.skills.add(new Backend());
+        this.skills.add(new Databases());
+        this.skills.add(new Frontend());
+        this.skills.add(new Wordpress());
+        this.skills.add(new Pretashop());
         this.workers = new ArrayList<Worker>();
         this.projects = new ArrayList<Project>();
         this.oldFriends = new ArrayList<OldFriend>();

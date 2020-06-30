@@ -14,27 +14,29 @@ public class Main {
         Game game = new Game(owner);
         game.Play();
 
-        System.out.println(game.projects.get(0).daysOfWork);
         game.PrintAllProjects();
 
         game.AssignProject(game.projects.get(0));
 
-        game.PrintAllProjects();
+        game.Work();
 
         owner.CurrentProject();
 
-        game.PrintAllWorkers();
+        game.Work();
 
-        System.out.println(owner.saldo);
+        owner.CurrentProject();
+
+        game.Work();
+        game.Work();
+        game.Work();
+        game.Work();
+        game.Work();
+
+        owner.CurrentProject();
+
+        game.ReturnProject();
+
         game.BuyWorker(game.workers.get(0));
-        System.out.println(owner.saldo);
-
-        game.PrintAllWorkers();
-        owner.PrintAllWorkers();
-
-        game.FindNewProject();
-        game.DisplayMenu();
-
 
     }
 }

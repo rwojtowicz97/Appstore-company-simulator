@@ -32,6 +32,5 @@ public class OldFriend {
                 ", level= " + level + '\'' +
                 ", skills= " + skills + '\'' +
                 ", price= " + price + '\'';
-
     }
 }
