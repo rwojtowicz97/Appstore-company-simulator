@@ -5,11 +5,12 @@ import com.company.objects.people.Client;
 import com.company.objects.people.OldFriend;
 import com.company.objects.people.Owner;
 import com.company.objects.people.Worker;
-import com.company.objects.skills.*;
+import com.company.objects.skills.Skill;
 import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Randomizer {
@@ -22,7 +23,7 @@ public class Game implements Randomizer {
     public static List<Project> projects = new ArrayList<Project>();
     public static List<Worker> workers = new ArrayList<Worker>();
     public static List<OldFriend> oldFriends = new ArrayList<OldFriend>();
-
+    public Scanner scan = new Scanner(System.in);
 
     Faker faker = new Faker();
 
@@ -83,6 +84,15 @@ public class Game implements Randomizer {
         NextDay();
     }
 
+    public void FireWorker(int x)
+    {
+        //TODO
+        owner.PrintAllWorkers();
+        owner.workers.remove(x);
+        owner.saldo -= 200;
+        NextDay();
+    }
+
     public void BuyWorker(Worker worker) {
         if (owner.saldo >= worker.price) {
             owner.workers.add(worker);
@@ -97,6 +107,16 @@ public class Game implements Randomizer {
 
     public void AssignProject(Project project)
     {
+        PrintAllProjects();
+        int option = scan.nextInt();
+
+        //TODO
+
+        switch (option){
+            case 1:
+
+        }
+
         owner.projects.add(project);
         this.projects.remove(project);
         NextDay();
@@ -104,7 +124,7 @@ public class Game implements Randomizer {
 
     public void ReturnProject()
     {
-        if(owner.projects.get(0) != null){
+        if(!owner.projects.isEmpty()){
         for (Skill skill: owner.projects.get(0).skillsNeeded
              ) {
             if(skill.daysOfWorkLeft != 0)
@@ -145,20 +165,64 @@ public class Game implements Randomizer {
 
     public void DisplayMenu()
     {
+        System.out.println();
         System.out.println("Day: " + dayCounter + " | Saldo: " + owner.saldo);
-        System.out.println(" ");
+        System.out.println();
         System.out.println("1. Work on current project");
         System.out.println("2. List your workers");
         System.out.println("3. Find new worker");
-        System.out.println("4. List Available Projects");
+        System.out.println("4. List available projects");
         System.out.println("5. List your old friends");
-        System.out.println("6. Find a new Project (Stage: " + newClientCounter + "/5)");
+        System.out.println("6. Find a new project (Stage: " + newClientCounter + "/5)");
         System.out.println("7. Pay your workers");
-
-
+        System.out.println("8. Choose new project");
         System.out.println("9. Go back to menu");
+        System.out.println("10. Return your project");
+        System.out.println("11. Kick-out your worker");
         System.out.println("0. EXIT");
-        System.out.println(" ");
+        System.out.println();
+        MenuScanner();
+    }
+
+    public void MenuScanner()
+    {
+        int option = scan.nextInt();
+
+        switch (option){
+            case 1:
+                Work();
+                break;
+            case 2:
+                owner.PrintAllWorkers();
+                break;
+            case 3:
+                PrintAllWorkers();
+                break;
+            case 4:
+                PrintAllProjects();
+                break;
+            case 5:
+                PrintAllOldFriends();
+                break;
+            case 6:
+                FindNewProject();
+                break;
+            case 7:
+                PayWorkersAndZus();
+                break;
+            case 9:
+                DisplayMenu();
+                break;
+            case 10:
+                ReturnProject();
+                break;
+            case 11:
+                //TODO
+                owner.PrintAllWorkers();
+                break;
+            case 0:
+                System.exit(0);
+        }
     }
 
     public void PrintAllClients()
@@ -173,10 +237,11 @@ public class Game implements Randomizer {
 
     public void PrintAllProjects()
     {
+        int index = 1;
         System.out.println("----------Available Projects-----------");
         for (Project project: projects)
         {
-         System.out.println(project);
+         System.out.println((index++) + ". " +project);
         }
         System.out.println("---------------------------------------");
     }
@@ -248,6 +313,8 @@ public class Game implements Randomizer {
 
     public void Play()
     {
-        DisplayMenu();
+        while (true){
+            DisplayMenu();
+        }
     }
 }

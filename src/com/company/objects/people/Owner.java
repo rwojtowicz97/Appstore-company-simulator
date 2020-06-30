@@ -1,6 +1,5 @@
 package com.company.objects.people;
 
-import com.company.objects.Game;
 import com.company.objects.Project;
 import com.company.objects.skills.*;
 
@@ -38,10 +37,12 @@ public class Owner {
     }
     public void PrintAllWorkers()
     {
+        System.out.println("----------My Workers-----------");
         for (Worker worker: workers
         ) {
             System.out.println(worker);
         }
+        System.out.println("-------------------------------");
     }
 
 }

@@ -11,31 +11,5 @@ public class Main {
 
         Game game = new Game(owner);
         game.Play();
-
-        game.PrintAllProjects();
-
-        game.AssignProject(game.projects.get(0));
-
-
-        owner.CurrentProject();
-
-
-
-        game.FindNewProject();
-        game.FindNewProject();
-        game.FindNewProject();
-        game.FindNewProject();
-        game.FindNewProject();
-        game.FindNewProject();
-
-        owner.CurrentProject();
-
-        game.ReturnProject();
-
-        game.BuyWorker(game.workers.get(0));
-
-        game.PrintAllProjects();
-
-
     }
 }
