@@ -20,6 +20,10 @@ public class Project implements Randomizer {
     public List<Skill> skillsNeeded = new ArrayList<Skill>();
     public static List<Skill> allSkills = new ArrayList<Skill>();
 
+    public Project()
+    {
+
+    }
 
     public Project(String projectName, Client client, int daysTillPayment, double penalty, double price, int daysTillDeadline)
     {

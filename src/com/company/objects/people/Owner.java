@@ -37,10 +37,11 @@ public class Owner {
     }
     public void PrintAllWorkers()
     {
+        int index = 1;
         System.out.println("----------My Workers-----------");
         for (Worker worker: workers
         ) {
-            System.out.println(worker);
+            System.out.println((index++) + ". " +worker);
         }
         System.out.println("-------------------------------");
     }

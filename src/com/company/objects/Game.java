@@ -105,17 +105,12 @@ public class Game implements Randomizer {
         }
     }
 
-    public void AssignProject(Project project)
+    public void AssignProject()
     {
         PrintAllProjects();
         int option = scan.nextInt();
 
-        //TODO
-
-        switch (option){
-            case 1:
-
-        }
+        Project project = projects.get(option-1);
 
         owner.projects.add(project);
         this.projects.remove(project);
@@ -209,6 +204,9 @@ public class Game implements Randomizer {
                 break;
             case 7:
                 PayWorkersAndZus();
+                break;
+            case 8:
+                AssignProject();
                 break;
             case 9:
                 DisplayMenu();
