@@ -1,17 +1,18 @@
 package com.company.objects;
 
+import com.company.Randomizer;
 import com.company.objects.people.Client;
 import com.company.objects.people.OldFriend;
 import com.company.objects.people.Owner;
 import com.company.objects.people.Worker;
-import com.company.objects.skills.Skill;
+import com.company.objects.skills.*;
+import com.github.javafaker.Faker;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Game {
+public class Game implements Randomizer {
     public int dayCounter;
     public int zusCounter;
     public int newClientCounter;
@@ -23,13 +24,15 @@ public class Game {
     public static List<OldFriend> oldFriends = new ArrayList<OldFriend>();
 
 
+    Faker faker = new Faker();
+
     public Game(Owner owner)
     {
         this.owner = owner;
-        dayCounter = 1;
-        zusCounter = 0;
-        newClientCounter = 0;
-        bigProjectCounter = 0;
+        this.dayCounter = 1;
+        this.zusCounter = 0;
+        this.newClientCounter = 0;
+        this.bigProjectCounter = 0;
         InitializeData();
     }
 
@@ -52,11 +55,10 @@ public class Game {
 
     public void InitializeProjects()
     {
-        projects.add(new Project("Allegro", clients.get(0), 10, 0d,1500d, 20));
-        projects.add(new Project("Instagram", clients.get(1), 10, 5000d,7000d, 20));
-        projects.add(new Project("Facebook", clients.get(2), 10, 0d,2000d, 20));
-        projects.add(new Project("OLX", clients.get(3), 10, 7000d,4500d, 20));
-        projects.add(new Project("Spotify", clients.get(4), 10, 9000d,15000d, 20));
+        for (int i = 0;i<=3;i++)
+        {
+            GenerateNewProject();
+        }
     }
 
     public void InitializeWorkers()
@@ -196,12 +198,19 @@ public class Game {
         ) {
             System.out.println(oldFriend);
         }
-        System.out.println("---------------------------------------");
+        System.out.println("---------------------------------");
     }
 
     public void GenerateNewProject()
     {
-
+        String randomName = faker.rickAndMorty().location();
+        int randomNumber = RandomNumberGenerator(0,14);
+        int clientNumber = RandomNumberGenerator(0, clients.size()-1);
+        int daysTillDeadLine = RandomNumberGenerator(5,15);
+        int daysTillPayment = randomNumber + daysTillDeadLine;
+        double randomPenalty = RandomNumberGenerator(0,500);
+        double randomPrice = RandomNumberGenerator(500, 10000);
+        projects.add(new Project(randomName, clients.get(clientNumber), daysTillPayment, randomPenalty, randomPrice, daysTillDeadLine));
     }
 
     public void Work()
