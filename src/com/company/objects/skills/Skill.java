@@ -14,4 +14,9 @@ public abstract class Skill {
     }
 
 
+    @Override
+    public String toString()
+    {
+        return "Skill { skill name: " + this.getClass().getSimpleName() + '\'';
+    }
 }

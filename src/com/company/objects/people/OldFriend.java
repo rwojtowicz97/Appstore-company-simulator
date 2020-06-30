@@ -25,4 +25,13 @@ public class OldFriend {
         this.skills.add(new Pretashop());
     }
 
+    @Override
+    public String toString()
+    {
+        return "OldFriend {" + "Old friend name= " + name + '\'' +
+                ", level= " + level + '\'' +
+                ", skills= " + skills + '\'' +
+                ", price= " + price + '\'';
+
+    }
 }

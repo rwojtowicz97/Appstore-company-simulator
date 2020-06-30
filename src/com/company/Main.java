@@ -3,6 +3,8 @@ package com.company;
 import com.company.objects.Game;
 import com.company.objects.people.Owner;
 
+import java.awt.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,13 +17,23 @@ public class Main {
         System.out.println(game.projects.get(0).daysOfWork);
         game.PrintAllProjects();
 
-        owner.AssignProject(game.projects.get(0), game);
+        game.AssignProject(game.projects.get(0));
 
-        System.out.println("After Asign");
         game.PrintAllProjects();
 
-        System.out.println("Current project");
         owner.CurrentProject();
+
+        game.PrintAllWorkers();
+
+        System.out.println(owner.saldo);
+        game.BuyWorker(game.workers.get(0));
+        System.out.println(owner.saldo);
+
+        game.PrintAllWorkers();
+        owner.PrintAllWorkers();
+
+        game.FindNewProject();
+        game.DisplayMenu();
 
 
     }

@@ -30,24 +30,18 @@ public class Owner {
         this.oldFriends = new ArrayList<OldFriend>();
     }
 
-    public void AssignProject(Project project, Game game)
-    {
-        this.projects.add(project);
-        game.projects.remove(project);
-    }
 
-    public void BuyWorker(Worker worker, Game game) {
-        if (saldo >= worker.price) {
-            this.workers.add(worker);
-            game.workers.remove(worker);
-        }
-        else {
-            System.out.println("Sorry, you don't have enough money to buy this Worker.");
-        }
-    }
     public void CurrentProject()
     {
-        System.out.println(this.projects.get(0));
+        System.out.println("Current project:");
+        System.out.println(this.projects);
+    }
+    public void PrintAllWorkers()
+    {
+        for (Worker worker: workers
+        ) {
+            System.out.println(worker);
+        }
     }
 
 }

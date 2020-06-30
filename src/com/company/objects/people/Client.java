@@ -8,4 +8,11 @@ public class Client {
         this.clientName = clientName;
         this.level = level;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Client {" + "Client name= " + clientName + '\'' +
+                ", level= " + level + '\'';
+    }
 }

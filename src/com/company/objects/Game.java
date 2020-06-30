@@ -4,6 +4,7 @@ import com.company.objects.people.Client;
 import com.company.objects.people.OldFriend;
 import com.company.objects.people.Owner;
 import com.company.objects.people.Worker;
+import com.company.objects.skills.Skill;
 
 import java.security.PublicKey;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class Game {
         InitializeClients();
         InitializeProjects();
         InitializeWorkers();
+        InitializeOldFriends();
     }
 
     public void InitializeClients()
@@ -71,41 +73,140 @@ public class Game {
         oldFriends.add(new OldFriend("Zbigniew Korek", RandomNumberGenerator(400, 1000), 3));
     }
 
+    public void PayWorkersAndZus() {
+        for (Worker worker: owner.workers
+             ) {
+            owner.saldo -= (worker.salary + 0.23*worker.salary);
+        }
+        NextDay();
+    }
+
+    public void BuyWorker(Worker worker) {
+        if (owner.saldo >= worker.price) {
+            owner.workers.add(worker);
+            this.workers.remove(worker);
+            owner.saldo -= worker.price;
+            NextDay();
+        }
+        else {
+            System.out.println("Sorry, you don't have enough money to buy this Worker.");
+        }
+    }
+
+    public void AssignProject(Project project)
+    {
+        owner.projects.add(project);
+        this.projects.remove(project);
+        NextDay();
+    }
+
+    public void ReturnProject()
+    {
+        if(owner.projects.get(0) != null){
+        for (Skill skill: owner.projects.get(0).skillsNeeded
+             ) {
+            if(skill.daysOfWorkLeft != 0)
+            {
+                System.out.println("You can't return unfinished project!");
+            }
+            else
+            {
+                System.out.println("Congratulations, you returner the project!");
+                owner.saldo += owner.projects.get(0).price;
+                owner.projects.remove(0);
+                NextDay();
+            }
+            return;
+        }
+        }
+        else
+        {
+            System.out.println("You don't have any projects.");
+        }
+    }
+
+    public void FindNewProject() {
+        if (newClientCounter != 5) {
+            this.newClientCounter++;
+        }
+        else {
+            GenerateNewProject();
+            this.newClientCounter = 0;
+        }
+        NextDay();
+    }
     public void NextDay()
     {
         dayCounter++;
+        DisplayMenu();
+    }
+
+    public void DisplayMenu()
+    {
+        System.out.println("Day: " + dayCounter + " | Saldo: " + owner.saldo);
+        System.out.println(" ");
+        System.out.println("1. Work on current project");
+        System.out.println("2. List your workers");
+        System.out.println("3. Find new worker");
+        System.out.println("4. List Available Projects");
+        System.out.println("5. List your old friends");
+        System.out.println("6. Find a new Project (Stage: " + newClientCounter + "/5)");
+        System.out.println("7. Pay your workers");
+
+
+        System.out.println("9. Go back to menu");
+        System.out.println("0. EXIT");
+        System.out.println(" ");
     }
 
     public void PrintAllClients()
     {
+        System.out.println("--------------Clients------------------");
         for (Client client: clients)
         {
             System.out.println(client);
         }
+        System.out.println("---------------------------------------");
     }
 
     public void PrintAllProjects()
     {
+        System.out.println("----------Available Projects-----------");
         for (Project project: projects)
         {
          System.out.println(project);
         }
+        System.out.println("---------------------------------------");
     }
 
     public void PrintAllWorkers()
     {
+        System.out.println("----------Available Workers-----------");
         for (Worker worker: workers
              ) {
             System.out.println(worker);
         }
+        System.out.println("---------------------------------------");
     }
 
     public void PrintAllOldFriends()
     {
+        System.out.println("----------Old Friends-----------");
         for (OldFriend oldFriend: oldFriends
         ) {
             System.out.println(oldFriend);
         }
+        System.out.println("---------------------------------------");
+    }
+
+    public void GenerateNewProject()
+    {
+
+    }
+
+    public void Work()
+    {
+
     }
 
     public int RandomNumberGenerator(int min, int max)

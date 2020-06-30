@@ -24,4 +24,15 @@ public class Worker {
         this.skills.add(new Wordpress());
         this.skills.add(new Pretashop());
     }
+
+
+    @Override
+    public String toString()
+    {
+        return "Worker {" + "Worker name= " + workerName + '\'' +
+                ", price= " + price + '\'' +
+                ", salary= " + salary + '\'' +
+                ", skills= " + skills + '\'';
+
+    }
 }
