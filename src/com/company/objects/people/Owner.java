@@ -32,8 +32,12 @@ public class Owner {
 
     public void CurrentProject()
     {
-        System.out.println("Current project:");
-        System.out.println(this.projects);
+        if (!this.projects.isEmpty()) {
+            System.out.println("Current project:");
+            System.out.println(this.projects.get(0));
+        }else {
+            System.out.println("You don't have any project");
+        }
     }
     public void PrintAllWorkers()
     {

@@ -51,7 +51,7 @@ public class Game implements Randomizer {
         System.out.println("1. Work on current project");
         System.out.println("2. List your workers");
         System.out.println("3. Find new worker");
-        System.out.println("4. List available projects");
+        System.out.println("4. Check your current project");
         System.out.println("5. List your old friends");
         System.out.println("6. Find a new project (Stage: " + newClientCounter + "/5)");
         System.out.println("7. Pay your workers");
@@ -79,7 +79,7 @@ public class Game implements Randomizer {
                 BuyWorker();
                 break;
             case 4:
-                PrintAllProjects();
+                owner.CurrentProject();
                 break;
             case 5:
                 PrintAllOldFriends();
@@ -167,15 +167,19 @@ public class Game implements Randomizer {
         PrintAllWorkers();
         int option = scan.nextInt();
 
-        if (owner.saldo >= workers.get(option-1).price) {
-            owner.saldo -= workers.get(option-1).price;
-            owner.workers.add(workers.get(option-1));
-            workers.remove(option-1);
-            GenerateNewWorker();
-            NextDay();
+        if (option > workers.size()){
+            DisplayMenu();
         }
         else {
-            System.out.println("Sorry, you don't have enough money to buy this Worker.");
+            if (owner.saldo >= workers.get(option - 1).price) {
+                owner.saldo -= workers.get(option - 1).price;
+                owner.workers.add(workers.get(option - 1));
+                workers.remove(option - 1);
+                GenerateNewWorker();
+                NextDay();
+            } else {
+                System.out.println("Sorry, you don't have enough money to buy this Worker.");
+            }
         }
     }
 
@@ -310,14 +314,14 @@ public class Game implements Randomizer {
                         if (projectSkill.getClass().getSimpleName() == ownerSkill.getClass().getSimpleName())
                         {
                             projectSkill.daysOfWorkLeft -= 1;
-                            owner.projects.get(0).UpdateDaysOfWork();
+                            owner.projects.get(0).daysOfWork -= 1;
                             NextDay();
                         }
                     }
                 }
             }
             System.out.println("Sorry, you can't work on this project.");
-            return;
+            DisplayMenu();
         }
         else {
             System.out.println("You don't have any project.");
