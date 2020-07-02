@@ -244,6 +244,7 @@ public class Game implements Randomizer {
     {
         dateTime = new DateTime(dateTime).plusDays(1);
         dayCounter++;
+        WorkersWork();
         DisplayMenu();
     }
 
@@ -333,6 +334,39 @@ public class Game implements Randomizer {
         else {
             System.out.println("You don't have any project.");
             DisplayMenu();
+        }
+    }
+
+    public void WorkersWork() {
+        if (!owner.projects.isEmpty()) {
+            if (!owner.workers.isEmpty()) {
+                for (Worker worker : owner.workers) {
+                    int isSick = RandomNumberGenerator(1,100);
+                    if (isSick < 95)
+                    {
+                        for (Skill workerSkill: worker.skills
+                             ) {
+                            if (owner.projects.get(0).daysOfWork > 0) {
+                                for (Skill projectSkill : owner.projects.get(0).skillsNeeded
+                                ) {
+                                    if ((projectSkill.getClass().getSimpleName() == workerSkill.getClass().getSimpleName()) & (projectSkill.daysOfWorkLeft > 0))
+                                    {
+                                        projectSkill.daysOfWorkLeft -= 1;
+                                        owner.projects.get(0).daysOfWork -= 1;
+                                        break;
+                                    }
+                                    continue;
+                                }
+                                continue;
+                            }
+                            break;
+                        }
+                    } else {
+                        System.out.println("Worker " + worker.workerName + " is sick today.");
+                        continue;
+                    }
+                }
+            }
         }
     }
 
