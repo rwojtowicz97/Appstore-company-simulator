@@ -7,10 +7,9 @@ import com.company.objects.people.Owner;
 import com.company.objects.people.Worker;
 import com.company.objects.skills.Skill;
 import com.github.javafaker.Faker;
+import org.joda.time.DateTime;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game implements Randomizer {
@@ -24,11 +23,13 @@ public class Game implements Randomizer {
     public static List<Worker> workers = new ArrayList<Worker>();
     public static List<OldFriend> oldFriends = new ArrayList<OldFriend>();
     public Scanner scan = new Scanner(System.in);
+    public DateTime dateTime;
 
     Faker faker = new Faker();
 
     public Game(Owner owner)
     {
+        this.dateTime = new DateTime(2020,01,01,0,0);
         this.owner = owner;
         this.dayCounter = 1;
         this.zusCounter = 0;
@@ -42,10 +43,10 @@ public class Game implements Randomizer {
         System.out.println();
         if (owner.projects.isEmpty())
         {
-            System.out.println("Day: " + dayCounter + " | Saldo: " + owner.saldo);
+            System.out.println("Date: " + dateTime.getYear() + "-" + dateTime.getMonthOfYear() + "-"+ dateTime.getDayOfMonth() +" | Day: " + dayCounter + " | Saldo: " + owner.saldo);
         }
         else {
-            System.out.println("Day: " + dayCounter + " | Saldo: " + owner.saldo + " | Project name: " + owner.projects.get(0).projectName + " WorkDays left: " + owner.projects.get(0).daysOfWork);
+            System.out.println("Date: " + dateTime.getYear() + "-" + dateTime.getMonthOfYear() + "-"+ dateTime.getDayOfMonth() +" | Day: " + dayCounter + " | Saldo: " + owner.saldo + " | Project name: " + owner.projects.get(0).projectName + " WorkDays left: " + owner.projects.get(0).daysOfWork);
         }
         System.out.println();
         System.out.println("1. Work on current project");
@@ -147,11 +148,16 @@ public class Game implements Randomizer {
     }
 
     public void PayWorkersAndZus() {
-        for (Worker worker: owner.workers
-             ) {
-            owner.saldo -= (worker.salary + 0.23*worker.salary);
+        if (!owner.workers.isEmpty()) {
+            for (Worker worker : owner.workers
+            ) {
+                owner.saldo -= (worker.salary + 0.23 * worker.salary);
+            }
+            NextDay();
+        }else {
+            System.out.println("You don't have any worker");
+            DisplayMenu();
         }
-        NextDay();
     }
 
     public void FireWorker()
@@ -236,6 +242,7 @@ public class Game implements Randomizer {
     }
     public void NextDay()
     {
+        dateTime = new DateTime(dateTime).plusDays(1);
         dayCounter++;
         DisplayMenu();
     }
