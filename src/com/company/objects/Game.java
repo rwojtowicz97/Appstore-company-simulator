@@ -338,12 +338,12 @@ public class Game implements Randomizer {
     }
 
     public void WorkersWork() {
-        if (!owner.projects.isEmpty()) {
-            if (!owner.workers.isEmpty()) {
+        if (!owner.projects.isEmpty() & !owner.workers.isEmpty()) {
                 for (Worker worker : owner.workers) {
                     int isSick = RandomNumberGenerator(1,100);
                     if (isSick < 95)
                     {
+                        label:
                         for (Skill workerSkill: worker.skills
                              ) {
                             if (owner.projects.get(0).daysOfWork > 0) {
@@ -353,7 +353,7 @@ public class Game implements Randomizer {
                                     {
                                         projectSkill.daysOfWorkLeft -= 1;
                                         owner.projects.get(0).daysOfWork -= 1;
-                                        break;
+                                        break label;
                                     }
                                     continue;
                                 }
@@ -366,7 +366,6 @@ public class Game implements Randomizer {
                         continue;
                     }
                 }
-            }
         }
     }
 
