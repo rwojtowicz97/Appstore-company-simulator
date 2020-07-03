@@ -25,6 +25,14 @@ public class Game implements Randomizer {
     public Scanner scan = new Scanner(System.in);
     public DateTime dateTime;
 
+    public static final int MONDAY = 1;
+    public static final int TUESDAY = 2;
+    public static final int WEDNESDAY = 3;
+    public static final int THURSDAY = 4;
+    public static final int FRIDAY = 5;
+    public static final int SATURDAY = 6;
+    public static final int SUNDAY = 7;
+
     Faker faker = new Faker();
 
     public Game(Owner owner)
@@ -242,9 +250,16 @@ public class Game implements Randomizer {
     }
     public void NextDay()
     {
-        dateTime = new DateTime(dateTime).plusDays(1);
+        dateTime = dateTime.plusDays(1);
+        DateTime.Property pDoW = dateTime.dayOfWeek();
+        String strT = pDoW.getAsText(Locale.ENGLISH);
+
+        System.out.println(strT);
         dayCounter++;
-        WorkersWork();
+        if(!(strT == "Saturday" | strT == "Sunday"))
+        {
+            WorkersWork();
+        }
         DisplayMenu();
     }
 
@@ -355,7 +370,6 @@ public class Game implements Randomizer {
                                         owner.projects.get(0).daysOfWork -= 1;
                                         break label;
                                     }
-                                    continue;
                                 }
                                 continue;
                             }
@@ -363,7 +377,6 @@ public class Game implements Randomizer {
                         }
                     } else {
                         System.out.println("Worker " + worker.workerName + " is sick today.");
-                        continue;
                     }
                 }
         }
