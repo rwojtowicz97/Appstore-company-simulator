@@ -150,9 +150,9 @@ public class Game implements Randomizer {
 
     public void InitializeOldFriends()
     {
-        oldFriends.add(new OldFriend("Rafał Kopacz", RandomNumberGenerator(2000, 4000), 1));
+        oldFriends.add(new OldFriend("Rafał Kopacz", RandomNumberGenerator(400, 1000), 1));
         oldFriends.add(new OldFriend("Mateusz Klosz", RandomNumberGenerator(1000, 3000), 2));
-        oldFriends.add(new OldFriend("Zbigniew Korek", RandomNumberGenerator(400, 1000), 3));
+        oldFriends.add(new OldFriend("Zbigniew Korek", RandomNumberGenerator(2500, 4000), 3));
     }
 
     public void PayWorkersAndZus() {
