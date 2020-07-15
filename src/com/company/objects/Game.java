@@ -41,29 +41,33 @@ public class Game implements Randomizer {
 
     public void DisplayMenu()
     {
-        System.out.println();
-        if (owner.projects.isEmpty())
+        if(owner.saldo < 0)
         {
-            System.out.println("Date: " + dateTime.getYear() + "-" + dateTime.getMonthOfYear() + "-"+ dateTime.getDayOfMonth() +" | Day: " + dayCounter + " | Saldo: " + owner.saldo);
+            System.out.println("YOU LOST!");
+            System.exit(0);
+        }else {
+            System.out.println();
+            if (owner.projects.isEmpty()) {
+                System.out.println("Date: " + dateTime.getYear() + "-" + dateTime.getMonthOfYear() + "-" + dateTime.getDayOfMonth() + " | Day: " + dayCounter + " | Saldo: " + owner.saldo);
+            } else {
+                System.out.println("Date: " + dateTime.getYear() + "-" + dateTime.getMonthOfYear() + "-" + dateTime.getDayOfMonth() + " | Day: " + dayCounter + " | Saldo: " + owner.saldo + " | Project name: " + owner.projects.get(0).projectName + " WorkDays left: " + owner.projects.get(0).daysOfWork);
+            }
+            System.out.println();
+            System.out.println("1. Work on current project");
+            System.out.println("2. List your workers");
+            System.out.println("3. Find new worker");
+            System.out.println("4. Check your current project");
+            System.out.println("5. List your old friends");
+            System.out.println("6. Find a new project (Stage: " + newClientCounter + "/5)");
+            System.out.println("7. Pay your workers");
+            System.out.println("8. Choose new project");
+            System.out.println("9. Go back to menu");
+            System.out.println("10. Return your project");
+            System.out.println("11. Kick-out your worker");
+            System.out.println("0. EXIT");
+            System.out.println();
+            MenuScanner();
         }
-        else {
-            System.out.println("Date: " + dateTime.getYear() + "-" + dateTime.getMonthOfYear() + "-"+ dateTime.getDayOfMonth() +" | Day: " + dayCounter + " | Saldo: " + owner.saldo + " | Project name: " + owner.projects.get(0).projectName + " WorkDays left: " + owner.projects.get(0).daysOfWork);
-        }
-        System.out.println();
-        System.out.println("1. Work on current project");
-        System.out.println("2. List your workers");
-        System.out.println("3. Find new worker");
-        System.out.println("4. Check your current project");
-        System.out.println("5. List your old friends");
-        System.out.println("6. Find a new project (Stage: " + newClientCounter + "/5)");
-        System.out.println("7. Pay your workers");
-        System.out.println("8. Choose new project");
-        System.out.println("9. Go back to menu");
-        System.out.println("10. Return your project");
-        System.out.println("11. Kick-out your worker");
-        System.out.println("0. EXIT");
-        System.out.println();
-        MenuScanner();
     }
 
     public void MenuScanner()
@@ -382,9 +386,8 @@ public class Game implements Randomizer {
 
     public void Play()
     {
-        while (owner.saldo >=0){
+        while (true){
             DisplayMenu();
         }
-        System.out.println("YOU LOST!");
     }
 }
